@@ -1,0 +1,134 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;700&family=Meow+Script&family=Roboto:wght@400;500;700&family=Rock+3D&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="cont">
+      <div class="title-cont">
+        <p>Rock Paper Scissors</p>
+      </div>
+
+      <div class="button-cont">
+        <div class="rock-cont">
+          <button
+            onclick="
+      computerMove=pickComputerMove();
+      yourMove = 'rock';
+      results(yourMove, computerMove);
+      "
+          >
+            🪨
+          </button>
+          <div class="tool-tip">Rock</div>
+        </div>
+
+        <div class="paper-cont">
+          <button
+            onclick="
+    computerMove=pickComputerMove();
+      yourMove = 'paper';
+      results(yourMove, computerMove);
+    "
+          >
+            🧻
+          </button>
+          <div class="tool-tip">Paper</div>
+        </div>
+
+        <div class="scissors-cont">
+          <button
+            onclick="
+    computerMove=pickComputerMove();
+      yourMove = 'scissors';
+      results(yourMove, computerMove);
+    "
+          >
+            ✂️
+          </button>
+          <div class="tool-tip">Scissors</div>
+        </div>
+
+        <div class="reset-cont">
+          <button onclick="resetGame()">🔄</button>
+          <div class="tool-tip">Reset</div>
+        </div>
+      </div>
+      <div class="message-cont"><p id="d"></p></div>
+      <div class="score-cont">
+        <div class="left">
+          <p class="results">Your score</p>
+          <p class="results">Computer score</p>
+          <p class="results">Ties</p>
+        </div>
+        <div class="right">
+          <p id="yourScore">: 0</p>
+          <p id="computerScore">: 0</p>
+          <p id="ties">: 0</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      let computerMove = "";
+      let yourScore = 0;
+      let computerScore = 0;
+      let ties = 0;
+      function pickComputerMove() {
+        randomNumber = Math.floor(Math.random() * 3) + 1;
+        if (randomNumber == 1) {
+          computerMove = "rock";
+        } else if (randomNumber == 2) {
+          computerMove = "scissors";
+        } else {
+          computerMove = "paper";
+        }
+        return computerMove;
+      }
+      function results(yourMove, computerMove) {
+        let result = "";
+        if (yourMove == computerMove) {
+          result = "Tie";
+        } else {
+          if (yourMove == "rock") {
+            result = computerMove == "scissors" ? "You win" : "You loss";
+          } else if (yourMove == "scissors") {
+            result = computerMove == "paper" ? "You win" : "You loss";
+          } else {
+            result = computerMove == "rock" ? "You win" : "You loss";
+          }
+        }
+        if (result == "You win") {
+          yourScore += 1;
+        } else if (result == "You loss") {
+          computerScore += 1;
+        } else {
+          ties += 1;
+        }
+        document.getElementById(
+          "d"
+        ).innerHTML = `You played ${yourMove}. Computer played ${computerMove}. ${result}`;
+        document.getElementById("yourScore").innerHTML = `: ${yourScore}`;
+        document.getElementById(
+          "computerScore"
+        ).innerHTML = `: ${computerScore}`;
+        document.getElementById("ties").innerHTML = `: ${ties}`;
+      }
+      function resetGame() {
+        yourScore = 0;
+        computerScore = 0;
+        ties = 0;
+        document.getElementById("d").innerHTML = "";
+        document.getElementById("yourScore").innerHTML = `: ${yourScore}`;
+        document.getElementById(
+          "computerScore"
+        ).innerHTML = `: ${computerScore}`;
+        document.getElementById("ties").innerHTML = `: ${ties}`;
+      }
+    </script>
+  </body>
+</html>
